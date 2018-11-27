@@ -12,13 +12,22 @@ const spin = keyframes`
 `;
 const Loader = () => {
   return (
-    <Ball>
-      <Inner />
-    </Ball>
+    <Box>
+      <Ball>
+        <Inner />
+      </Ball>
+    </Box>
   );
 };
 export default Loader;
 
+const Box = styled.div`
+display: flex;
+flex-basis: 100%;
+justify-content: center;
+align-items: center;
+margin: 2.5rem;
+`
 const Ball = styled.div`
   position: relative;
   height: 100px;
@@ -42,44 +51,3 @@ const Inner = styled.div`
   animation: ${morph} 1.5s linear infinite, ${spin} 1.5s ease-in-out infinite;
 `;
 
-// const MovingBall = keyframes`
-//      0 % { transform: scale(0); opacity: 1; }
-//      100% { transform: scale(1.4); opacity: 0; }
-// `;
-
-// const Loader = () => {
-//   return <Pulse />;
-// };
-
-// const Loader = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border-radius: 50%;
-//   font-size: 14px;
-//   border: 2px dashed;
-//   height: 50px;
-//   width: 100px;
-// `;
-// const Pulse = styled.div`
-//   display: flex;
-//   background-color: #f31a6a8e;
-//   width: 100px;
-//   height: 100px;
-//   border-radius: 50%;
-//   position: relative;
-//   .after,
-//   .before {
-//     display: flex;
-//     position: absolute;
-//     background-color: rgb(109, 14, 117);
-//     border-radius: 50%;
-//     width: 100px;
-//     height: 100px;
-//     animation: ${MovingBall} 3s linear infinite;
-//   }
-//   .after {
-//     animation: ${MovingBall} 2s linear infinite;
-//     animation-delay: 1s;
-//   }
-// `;

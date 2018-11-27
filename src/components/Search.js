@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import debounce from "lodash/debounce";
+// import debounce from "lodash/debounce";
 
 export default class Search extends Component {
 
@@ -8,30 +8,33 @@ export default class Search extends Component {
     word: "",
   };
 
-  handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      console.log(this.state.word)
-    }
+  timeout = 0;
+
+  doSearch(e) {
+    clearTimeout(this.timeout);
+    this.setState({ word: e.target.value });
+    this.timeout = setTimeout(() => {
+      this.props.get_data(this.state.word);
+      // this.debounced_search();
+    }, 1000);
   }
 
-  update_changes = e => {
-    this.setState({ word: e.target.value });
-    this.debounced_search();
-  };
-
-  search = () => {
-    this.props.get_data(this.state.word);
-  };
-
-  debounced_search = debounce(this.search, 300);
+  // update_changes = e => {
+  //   this.setState({ word: e.target.value });
+  //   // this.debounced_search();
+  // };
+  // search = () => {
+  //   this.props.get_data(this.state.word);
+  // };
+  // debounced_search = debounce(this.search, 300);
 
   render() {
     return (
       <StyledSearch>
         <Input
+          type="text"
           placeholder="Try 'cats'.."
-          onChange={this.update_changes}
-          onKeyDown={this.handleKeyDown}
+          onChange={e => this.doSearch(e)}
         />
       </StyledSearch>
     );

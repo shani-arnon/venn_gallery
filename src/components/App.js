@@ -39,6 +39,7 @@ export default class App extends Component {
         page: next_page
       });
       this.get_data();
+      e.target.scrollingElement.scrollTop = 0;
     }
   };
 
@@ -46,18 +47,28 @@ export default class App extends Component {
     window.addEventListener('scroll', this.scrolling);
   }
 
-  get_data = item => {
+  get_data = (item = '') => {
+    const new_search = (item !== '')
     item = item || this.state.word;
     this.setState({
       word: item,
       loading: true
     });
+    console.log('search flicker for ' + item)
     this.get_data_from_flickr(item, images => {
-      images = this.state.images.concat(images);
-      this.setState({
-        images,
-        loading: false
-      });
+      if (new_search) {
+        this.setState({
+          images,
+          loading: false
+        });
+      } else {
+        // images = this.state.images.concat(images);
+        images = [...this.state.images, ...images];
+        this.setState({
+          images,
+          loading: false
+        });
+      }
     })
   }
   render() {
@@ -70,7 +81,7 @@ export default class App extends Component {
         <Gallery
           images={this.state.images}
           loading={this.state.loading}
-          get_data={this.get_data}
+        // get_data={this.get_data}
         />
         <GlobalStyles />
       </Box>

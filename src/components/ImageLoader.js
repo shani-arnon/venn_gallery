@@ -3,11 +3,17 @@ import styled, { keyframes } from "styled-components";
 
 export default class ImageLoader extends Component {
   state = {
-    is_loading: true
+    is_loading: true,
   };
   on_loaded = () => {
     this.setState({ is_loading: false });
   };
+  shouldComponentUpdate(nextProps) {
+    const { url } = this.props;
+    const { url: next_url } = nextProps;
+    if (url !== next_url) this.setState({ is_loading: true });
+    return true;
+  }
   render() {
     const { url } = this.props;
     return (
