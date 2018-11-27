@@ -13,8 +13,8 @@ export default class Gallery extends Component {
     return (
       <StyledGallery>
         <GalleryBox>
-          {this.render_images()}
           {this.props.loading && <Loader />}
+          {this.render_images()}
         </GalleryBox>
       </StyledGallery>
     );
